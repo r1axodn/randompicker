@@ -65,7 +65,7 @@ function draw() {
   }
 
   const shuffled = pool.sort(() => Math.random() - 0.5);
-  const result = shuffled.slice(0, count);
+  const result = shuffled.slice(0, count).sort((a, b) => a - b);
 
   resultDiv.innerText = result.join(", ");
   result.forEach(n => excludedState[n] = true);
