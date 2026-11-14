@@ -64,8 +64,13 @@ function draw() {
     return;
   }
 
-  const shuffled = pool.sort(() => Math.random() - 0.5);
-  const result = shuffled.slice(0, count).sort((a, b) => a - b);
+  // Fisher-Yates 셔플 (편향 없는 무작위 순열)
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  const result = pool.slice(0, count).sort((a, b) => a - b);
 
   resultDiv.innerText = result.join(", ");
   result.forEach(n => excludedState[n] = true);
